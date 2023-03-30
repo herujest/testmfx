@@ -1,5 +1,6 @@
 import React from 'react';
 import {StatusBar, View} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {IContainer} from '.';
 import Base from './basic.style';
 
@@ -11,8 +12,10 @@ const Container = ({children, style, statusBar, ...props}: IContainer) => {
   styles.push(style);
   return (
     <View {...props} style={styles}>
-      <StatusBar {...statusBar} />
-      {children}
+      <SafeAreaView style={styles}>
+        <StatusBar {...statusBar} />
+        {children}
+      </SafeAreaView>
     </View>
   );
 };

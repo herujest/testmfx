@@ -1,0 +1,25 @@
+{
+    "plugins": [
+        [
+            "module-resolver",
+            {
+                "cwd": "babelrc",
+                "root": [
+                    "./"
+                ],
+                "extensions": [
+                    ".js",
+                    ".ios.js",
+                    ".android.js",
+                    ".ts"
+                ],
+                "alias": {
+                    "_actions": "./src/redux/actions",
+                    "_atom": "./src/views/components/Atom",
+                    "_molecule": "./src/views/components/Molecule",
+                    "_organism": "./src/views/components/Organism",
+                }
+            }
+        ]
+    ]
+}
