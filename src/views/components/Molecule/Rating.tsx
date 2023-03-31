@@ -3,7 +3,6 @@ import Icon from '_atom/Icon';
 import {View} from 'react-native';
 
 const Rating = ({rate}: {rate: number}) => {
-  console.log('rate', rate);
   const iconProps = {
     style: {marginRight: 3},
     color: '#fccf29',
