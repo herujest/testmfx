@@ -4,7 +4,6 @@ export const {width, height} = Dimensions.get('window');
 
 const Base = StyleSheet.create({
   'Basic.Container': {
-    flex: 1,
     flexDirection: 'column',
     height: height,
     backgroundColor: 'white',

@@ -1,7 +1,7 @@
 import {getCategory, getProduct} from '_actions/main';
-import {Container} from '_organism/Basic';
+import Icon from '_atom/Icon';
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, Alert, FlatList} from 'react-native';
+import {ActivityIndicator, Alert, FlatList, Text, View} from 'react-native';
 import {ConnectedProps, connect} from 'react-redux';
 import {RootState} from 'src/redux';
 import {CategoryType, ProductType} from 'src/redux/reducers/main';
@@ -18,6 +18,8 @@ const ListHeaderComponent = ({data}: {data: CategoryType[]}) => {
       data={data}
       renderItem={RenderCategory}
       keyExtractor={(item, index) => index.toString()}
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={styles.listHeaderContent}
     />
   );
 };
@@ -32,18 +34,33 @@ const HomeScreen: React.FC<Props> = props => {
   }, []);
 
   return (
-    <Container style={styles.container}>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <View style={styles.buttonIcon}>
+          <Icon name="left" />
+        </View>
+        <Text style={styles.headerTitle}>Shoes</Text>
+        <View style={styles.buttonIcon}>
+          <Icon name="filter" />
+        </View>
+      </View>
       {isLoading ? (
         <ActivityIndicator />
       ) : (
-        <FlatList
-          data={productData}
-          ListHeaderComponent={<ListHeaderComponent data={categoryData} />}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={RenderItem}
-        />
+        <>
+          <View>
+            <ListHeaderComponent data={categoryData} />
+          </View>
+          <FlatList
+            data={[...productData, ...productData, ...productData]}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={RenderItem}
+            numColumns={2}
+            contentContainerStyle={styles.content}
+          />
+        </>
       )}
-    </Container>
+    </View>
   );
 
   async function fetchAllData() {

@@ -95,7 +95,7 @@ export default function Icon({
   viewBoxHeightPercentage,
   style,
 }: IIcon) {
-  const sizeIcon = size || 15;
+  const sizeIcon = size || 20;
   return (
     <SvgIcon
       iconSet={json}
