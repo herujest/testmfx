@@ -18,6 +18,7 @@
                     "_atom": "./src/views/components/Atom",
                     "_molecule": "./src/views/components/Molecule",
                     "_organism": "./src/views/components/Organism",
+                    "_services": "./src/services"
                 }
             }
         ]

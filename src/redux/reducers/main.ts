@@ -5,10 +5,33 @@ export type NavState = {
   routes: Array<any> | any;
 };
 
+export type CategoryType = {
+  id: number;
+  name: string;
+};
+
+export type ProductType = {
+  id: string;
+  image: string;
+  images: string[];
+  name: string;
+  price: string;
+  off: string;
+  rating: number;
+  new: boolean;
+  isFav: boolean;
+  out_of_stock: boolean;
+  reviewCount: number;
+  sizes: number[];
+  description: string;
+};
+
 export interface MainInitialStateType {
   currentRouteName: string;
   currentState: any;
   navState: NavState;
+  isLoading: boolean;
+  error: any | null;
 }
 
 const initialState: MainInitialStateType = {
@@ -17,6 +40,8 @@ const initialState: MainInitialStateType = {
   navState: {
     routes: <any[]>[],
   },
+  isLoading: false,
+  error: null,
 };
 
 export default (state = initialState, {type, payload}: AnyAction) => {
@@ -38,7 +63,15 @@ export default (state = initialState, {type, payload}: AnyAction) => {
         currentRouteName: payload,
         currentState: route?.params,
       };
-
+    case TYPES.GET_CATEGORY_START:
+    case TYPES.GET_PRODUCT_START:
+      return {...state, isLoading: true};
+    case TYPES.GET_CATEGORY_FAILED:
+    case TYPES.GET_PRODUCT_FAILED:
+      return {...state, isLoading: false, error: payload};
+    case TYPES.GET_CATEGORY_SUCCESS:
+    case TYPES.GET_PRODUCT_SUCCESS:
+      return {...state, isLoading: false, error: null};
     default:
       return state;
   }
