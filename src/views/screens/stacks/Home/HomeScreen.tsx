@@ -1,7 +1,14 @@
 import {getCategory, getProduct} from '_actions/main';
 import Icon from '_atom/Icon';
-import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, Alert, FlatList, Text, View} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
+import {
+  ActivityIndicator,
+  Alert,
+  FlatList,
+  Pressable,
+  Text,
+  View,
+} from 'react-native';
 import {ConnectedProps, connect} from 'react-redux';
 import {RootState} from 'src/redux';
 import {CategoryType, ProductType} from 'src/redux/reducers/main';
@@ -33,6 +40,14 @@ const HomeScreen: React.FC<Props> = props => {
     fetchAllData();
   }, []);
 
+  const filter = useCallback(() => {
+    const filterSearch = 'CAP'.toLowerCase();
+    const newRes = productData.filter(i =>
+      i.name.toLowerCase().includes(filterSearch),
+    );
+    setProductData(newRes);
+  }, [productData]);
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -40,9 +55,9 @@ const HomeScreen: React.FC<Props> = props => {
           <Icon name="left" />
         </View>
         <Text style={styles.headerTitle}>Shoes</Text>
-        <View style={styles.buttonIcon}>
+        <Pressable style={styles.buttonIcon}>
           <Icon name="filter" />
-        </View>
+        </Pressable>
       </View>
       {isLoading ? (
         <ActivityIndicator />
@@ -52,7 +67,7 @@ const HomeScreen: React.FC<Props> = props => {
             <ListHeaderComponent data={categoryData} />
           </View>
           <FlatList
-            data={[...productData, ...productData, ...productData]}
+            data={productData}
             keyExtractor={(item, index) => index.toString()}
             renderItem={RenderItem}
             numColumns={2}
